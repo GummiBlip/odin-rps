@@ -33,9 +33,10 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
   let input = prompt("Please enter your selection, or type help for help: ");
+  return input;
 }
 
-function handlePlayerChoice(choice) {
+function convertPlayerChoice(choice) {
   switch (choice.toLowerCase()) {
     case "rock":
       return rockData;
@@ -53,9 +54,18 @@ function printHelp() {
   console.log("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
 }
 
+window.addEventListener('load', gameLoop())
 
-let playerChoice = getPlayerChoice();
-let computerChoice = getComputerChoice();
+function gameLoop(timesToPlay = 5) {
+  for (iterations = 0; iterations < timesToPlay; iterations++) {
+    let playerChoice = convertPlayerChoice(getPlayerChoice());
+    let computerChoice = getComputerChoice();
+
+
+  }
+}
+
+
 
 switch (computerChoice.get(playerChoice)) {
   case "beats":
