@@ -45,7 +45,7 @@ function convertPlayerChoice(choice) {
     case 'scissors' || 'scissor':
       return scissorsData;
     default:
-      console.log("An unexpected issue has arisen. Check the code of the convertPlayerChoice function.");
+      return null;
   }
 
 }
@@ -54,23 +54,29 @@ function printHelp() {
   console.log("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
 }
 
+function capitalize(string) {
+  return string[0].toUpperCase() + string.slice(1);
+}
+
 function getRoundResult(playerChoice, computerChoice) {
   let result = null;
-  console.log(playerChoice.get(computerChoice.get("name")))
   switch (playerChoice.get(computerChoice.get("name"))) {
     case "beats":
       return result = "win";
     case "loses":
-      return result = "loss";
+      return result = "lose";
     case "draws":
       return result = "draw";
     default:
       console.log("An error has ocurred. Please check the getRoundResult function.")
+      return result;
 }
 
 }
 
 function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
+  // Fix this to use correct wording. Add tally function for score.
+  console.log(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} draws with ${capitalize(computerChoice.get("name"))}.`);
   switch (playerRoundResult) {
     case "win":
       console.log("You win! " + playerChoice.get("name") + " beats " + computerChoice.get("name"));
@@ -79,19 +85,30 @@ function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
       console.log("You lose! " + playerChoice.get("name") + " loses to " + computerChoice.get("name"));
       break;
     case "draw":
-      console.log("It's a draw! " + playerChoice.get("name") + " draws with " + computerChoice.get("name"));
+      console.log(`It's a draw! ${capitalize(playerChoice.get("name"))} draws with ${capitalize(computerChoice.get("name"))}.`);
       break;
   }
 }
 
 function gameLoop(roundsToPlay = 5) {
+  let playerChoice
+  let computerChoice
   for (rounds = 0; rounds < roundsToPlay; rounds++) {
-    let playerChoice = convertPlayerChoice(getPlayerChoice());
-    let computerChoice = getComputerChoice();
+    do {
+    playerChoice = convertPlayerChoice(getPlayerChoice());
+    if (playerChoice === null) {
+      printHelp()
+    }
+    } while (playerChoice === null)
+    
+    computerChoice = getComputerChoice();
     let roundResult = getRoundResult(playerChoice, computerChoice);
     announceRoundResult(roundResult, playerChoice, computerChoice)
     
   }
 }
 
+
+
+printHelp()
 window.addEventListener('load', gameLoop())
