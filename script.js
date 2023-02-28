@@ -68,7 +68,7 @@ function getPlayerResult(playerChoice, computerChoice) {
     case "draws":
       return playerResult = "draw";
     default:
-      console.log("An error has ocurred. Please check the getRoundResult function.")
+      console.log("An error has ocurred. Please check the getPlayerResult function.")
       return playerResult;
 }
 
@@ -90,7 +90,7 @@ function gameLoop(roundsToPlay = 5) {
     } while (playerChoice === null)
     
     computerChoice = getComputerChoice();
-    let roundResult = getRoundResult(playerChoice, computerChoice);
+    let roundResult = getPlayerResult(playerChoice, computerChoice);
     announceRoundResult(roundResult, playerChoice, computerChoice)
     
   }
