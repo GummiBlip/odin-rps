@@ -58,36 +58,24 @@ function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
-function getRoundResult(playerChoice, computerChoice) {
-  let result = null;
+function getPlayerResult(playerChoice, computerChoice) {
+  let playerResult = null;
   switch (playerChoice.get(computerChoice.get("name"))) {
     case "beats":
-      return result = "win";
+      return playerResult = "win";
     case "loses":
-      return result = "lose";
+      return playerResult = "lose";
     case "draws":
-      return result = "draw";
+      return playerResult = "draw";
     default:
       console.log("An error has ocurred. Please check the getRoundResult function.")
-      return result;
+      return playerResult;
 }
 
 }
 
 function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
-  // Fix this to use correct wording. Add tally function for score.
-  console.log(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} draws with ${capitalize(computerChoice.get("name"))}.`);
-  switch (playerRoundResult) {
-    case "win":
-      console.log("You win! " + playerChoice.get("name") + " beats " + computerChoice.get("name"));
-      break;
-    case "loss":
-      console.log("You lose! " + playerChoice.get("name") + " loses to " + computerChoice.get("name"));
-      break;
-    case "draw":
-      console.log(`It's a draw! ${capitalize(playerChoice.get("name"))} draws with ${capitalize(computerChoice.get("name"))}.`);
-      break;
-  }
+  console.log(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
 }
 
 function gameLoop(roundsToPlay = 5) {
