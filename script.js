@@ -78,6 +78,10 @@ function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
   console.log(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
 }
 
+function updateScore(playerRoundResult) {
+
+}
+
 function gameLoop(roundsToPlay = 5) {
   let playerChoice
   let computerChoice
@@ -96,7 +100,20 @@ function gameLoop(roundsToPlay = 5) {
   }
 }
 
+function startGame() {
+  let desiredRounds;
+  let promptPlayer = true;
+  while (promptPlayer) {
+    desiredRounds = parseInt(prompt("Please enter the number of Rock Paper Scissors rounds you'd like to play: "));
+    if ( (desiredRounds < 1) || (desiredRounds === NaN)) {
+      print("Please enter a valid number of rounds.")
+      continue
+    } else {
+      promptPlayer = false;
+    }
+  }
+  gameLoop(desiredRounds);
+}
 
-
-printHelp()
-window.addEventListener('load', gameLoop())
+alert("Open the console!")
+window.addEventListener('load', startGame())
