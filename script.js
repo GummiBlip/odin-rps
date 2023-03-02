@@ -105,7 +105,6 @@ function startGame() {
   let promptPlayer = true;
   while (promptPlayer) {
     desiredRounds = parseInt(prompt("Please enter the number of Rock Paper Scissors rounds you'd like to play: "));
-    alert(desiredRounds)
     if ( (desiredRounds < 1) || isNaN(desiredRounds)) {
       alert("Please enter a valid number of rounds.");
       continue;
