@@ -27,7 +27,7 @@ function getComputerChoice() {
     case 2:
       return scissorsData;
     default:
-      console.log("An unexpected issue has arisen. Check the code of the getComputerChoice function.");
+      alert("An unexpected issue has arisen. Check the code of the getComputerChoice function.");
   }
 }
 
@@ -51,7 +51,7 @@ function convertPlayerChoice(choice) {
 }
 
 function printHelp() {
-  console.log("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
+  alert("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
 }
 
 function capitalize(string) {
@@ -68,14 +68,14 @@ function getPlayerResult(playerChoice, computerChoice) {
     case "draws":
       return playerResult = "draw";
     default:
-      console.log("An error has ocurred. Please check the getPlayerResult function.")
+      alert("An error has ocurred. Please check the getPlayerResult function.")
       return playerResult;
 }
 
 }
 
 function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
-  console.log(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
+  alert(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
 }
 
 function updateScore(playerRoundResult) {
@@ -105,7 +105,7 @@ function startGame() {
   let promptPlayer = true;
   while (promptPlayer) {
     desiredRounds = parseInt(prompt("Please enter the number of Rock Paper Scissors rounds you'd like to play: "));
-    console.log(desiredRounds)
+    alert(desiredRounds)
     if ( (desiredRounds < 1) || isNaN(desiredRounds)) {
       alert("Please enter a valid number of rounds.");
       continue;
