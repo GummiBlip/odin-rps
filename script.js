@@ -101,19 +101,19 @@ function gameLoop(roundsToPlay = 5) {
 }
 
 function startGame() {
-  let desiredRounds;
+  let desiredRounds = null;
   let promptPlayer = true;
   while (promptPlayer) {
     desiredRounds = parseInt(prompt("Please enter the number of Rock Paper Scissors rounds you'd like to play: "));
-    if ( (desiredRounds < 1) || (desiredRounds === NaN)) {
-      print("Please enter a valid number of rounds.")
-      continue
-    } else {
+    console.log(desiredRounds)
+    if ( (desiredRounds < 1) || isNaN(desiredRounds)) {
+      alert("Please enter a valid number of rounds.");
+      continue;
+    } 
+    else {
       promptPlayer = false;
     }
   }
   gameLoop(desiredRounds);
 }
-
-alert("Open the console!")
 window.addEventListener('load', startGame())
