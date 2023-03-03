@@ -85,6 +85,7 @@ function gameLoop(roundsToPlay = 5) {
   let playerChoice
   let computerChoice
   for (rounds = 0; rounds < roundsToPlay; rounds++) {
+    
     do {
     playerChoice = convertPlayerChoice(getPlayerChoice());
     if (playerChoice === null) {
