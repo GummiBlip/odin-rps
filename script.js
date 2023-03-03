@@ -36,8 +36,8 @@ function getPlayerChoice() {
   return input;
 }
 
-function convertPlayerChoice(choice) {
-  switch (choice.toLowerCase()) {
+function stringToChoice(string) {
+  switch (string.toLowerCase()) {
     case "rock":
       return rockData;
     case 'paper':
@@ -59,17 +59,16 @@ function capitalize(string) {
 }
 
 function getPlayerResult(playerChoice, computerChoice) {
-  let playerResult = null;
   switch (playerChoice.get(computerChoice.get("name"))) {
     case "beats":
-      return playerResult = "win";
+      return "win";
     case "loses":
-      return playerResult = "lose";
+      return "lose";
     case "draws":
-      return playerResult = "draw";
+      return "draw";
     default:
       alert("An error has ocurred. Please check the getPlayerResult function.")
-      return playerResult;
+      return null;
 }
 
 }
