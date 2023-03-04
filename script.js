@@ -87,7 +87,7 @@ function gameLoop(roundsToPlay = 5) {
   for (rounds = 0; rounds < roundsToPlay; rounds++) {
     
     do {
-    playerChoice = convertPlayerChoice(getPlayerChoice());
+    playerChoice = stringToChoice(getPlayerChoice());
     if (playerChoice === null) {
       printHelp()
     }
