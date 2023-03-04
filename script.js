@@ -33,7 +33,11 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
   let input = prompt("Please enter your selection, or type help for help: ");
-  return input;
+  if (input === null) {
+    return input = "rock";
+  } else {
+    return input;
+  }
 }
 
 function stringToChoice(string) {
