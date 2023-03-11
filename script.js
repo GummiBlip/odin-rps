@@ -117,6 +117,5 @@ function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
-
-
-window.addEventListener("load", gameLoop())
+let startButton = document.querySelector("button");
+startButton.addEventListener("click", gameLoop)
