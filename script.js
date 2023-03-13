@@ -1,26 +1,27 @@
 let rockData = new Map([
   ["name", "rock"],
-  ["rock", "draws"],
-  ["paper", "loses"],
-  ["scissors", "beats"]
+  ["rock", "draw"],
+  ["paper", "lose"],
+  ["scissors", "win"]
 ]);
 let paperData = new Map([
   ["name", "paper"],
-  ["rock", "beats"],
-  ["paper", "draws"],
-  ["scissors", "loses"]
+  ["rock", "win"],
+  ["paper", "draw"],
+  ["scissors", "lose"]
 ]);
 let scissorsData = new Map([
   ["name", "scissors"],
-  ["rock", "loses"],
-  ["paper", "beats"],
-  ["scissors", "draws"]
+  ["rock", "lose"],
+  ["paper", "win"],
+  ["scissors", "draw"]
 ]);
 
 function gameLoop() {
   let roundsToPlay = getDesiredRounds();
   let playerChoice;
   let computerChoice;
+  let score = [];
   for (rounds = 0; rounds < roundsToPlay; rounds++) {
     
     do {
@@ -32,10 +33,24 @@ function gameLoop() {
     
     computerChoice = getComputerChoice();
     let roundResult = getRoundResult(playerChoice, computerChoice);
-    announceRoundResult(roundResult, playerChoice, computerChoice)
+    //updateScore(roundResult, score);
+    announceRoundResult(roundResult, playerChoice, computerChoice);
     
   }
 }
+
+function updateScore(playerRoundResult) {
+  switch (playerRoundResult) {
+    case "win":
+      score[0]++;
+      break;
+    case "lose":
+      score[1]++;
+      break;
+    case "draw":
+      break;
+  }
+  }
 
 function getDesiredRounds() {
   let desiredRounds;
@@ -76,9 +91,9 @@ function stringToChoice(string) {
   switch (string.toLowerCase()) {
     case "rock":
       return rockData;
-    case 'paper':
+    case "paper":
       return paperData;
-    case 'scissors' || 'scissor':
+    case "scissors" || "scissor":
       return scissorsData;
     default:
       return null;
@@ -87,26 +102,11 @@ function stringToChoice(string) {
 }
 
 function getRoundResult(playerChoice, computerChoice) {
-  switch (playerChoice.get(computerChoice.get("name"))) {
-    case "beats":
-      return "win";
-    case "loses":
-      return "lose";
-    case "draws":
-      return "draw";
-    default:
-      alert("An error has ocurred. Please check the getPlayerResult function.")
-      return null;
-}
-
+  return (playerChoice.get(computerChoice.get("name")))
 }
 
 function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
   alert(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
-}
-
-function updateScore(playerRoundResult) {
-//To be written
 }
 
 function printHelp() {
