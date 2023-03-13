@@ -21,8 +21,8 @@ function gameLoop() {
   let roundsToPlay = getDesiredRounds();
   let playerChoice;
   let computerChoice;
-  let score = [];
-  for (rounds = 0; rounds < roundsToPlay; rounds++) {
+  let score = [0, 0];
+  for (round = 1; round <= roundsToPlay; round++) {
     
     do {
     playerChoice = stringToChoice(getPlayerChoice());
@@ -33,13 +33,14 @@ function gameLoop() {
     
     computerChoice = getComputerChoice();
     let roundResult = getRoundResult(playerChoice, computerChoice);
-    //updateScore(roundResult, score);
-    announceRoundResult(roundResult, playerChoice, computerChoice);
+    updateScore(roundResult, score);
+    announceRoundResult(roundResult, playerChoice, computerChoice, score);
+    announceScore(round, roundsToPlay, score);
     
   }
 }
 
-function updateScore(playerRoundResult) {
+function updateScore(playerRoundResult, score) {
   switch (playerRoundResult) {
     case "win":
       score[0]++;
@@ -93,7 +94,8 @@ function stringToChoice(string) {
       return rockData;
     case "paper":
       return paperData;
-    case "scissors" || "scissor":
+    case "scissors":
+    case "scissor":
       return scissorsData;
     default:
       return null;
@@ -105,8 +107,16 @@ function getRoundResult(playerChoice, computerChoice) {
   return (playerChoice.get(computerChoice.get("name")))
 }
 
-function announceRoundResult(playerRoundResult, playerChoice, computerChoice) {
+function announceRoundResult(playerRoundResult, playerChoice, computerChoice, score) {
   alert(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
+}
+
+function announceScore(currentRound, roundsToPlay, score) {
+  if (currentRound < roundsToPlay) {
+    alert(`This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`);
+  } else {
+    alert(`This makes the score ${score[0]} for the player and ${score[1]} for the computer overall!`);
+  }
 }
 
 function printHelp() {
