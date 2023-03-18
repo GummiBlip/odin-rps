@@ -35,7 +35,11 @@ function gameLoop() {
     let roundResult = getRoundResult(playerChoice, computerChoice);
     updateScore(roundResult, score);
     announceRoundResult(roundResult, playerChoice, computerChoice, score);
-    announceScore(round, roundsToPlay, score);
+    if (round !== roundsToPlay) {
+      announceScore(round, roundsToPlay, score);
+    } else {
+      announceWinner(score)
+    }
     
   }
 }
@@ -118,6 +122,15 @@ function announceScore(currentRound, roundsToPlay, score) {
     alert(`This makes the score ${score[0]} for the player and ${score[1]} for the computer overall!`);
   }
 }
+
+function announceWinner(score) {
+if (score[0] > score[1]) {
+  alert(`The player wins with a score of ${score[0]} to the computer's ${score[1]}!`);
+} else if (score[1] > score[0]) {
+  alert(`The computer wins with a score of ${score[1]} to the player's ${score[0]}!`);
+} else {
+  alert(`It's a draw! ${score[0]}-${score[0]}`);
+}}
 
 function printHelp() {
   alert("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
