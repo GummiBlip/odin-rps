@@ -17,34 +17,11 @@ let scissorsData = new Map([
   ["scissors", "draw"]
 ]);
 
-function gameLoop() {
-  let roundsToPlay = getDesiredRounds();
-  let playerChoice;
-  let computerChoice;
-  let score = [0, 0];
-  for (round = 1; round <= roundsToPlay; round++) {
-    
-    do {
-    playerChoice = stringToChoice(getPlayerChoice());
-    if (playerChoice === null) {
-      printHelp()
-    }
-    } while (playerChoice === null)
-    
-    computerChoice = getComputerChoice();
-    let roundResult = getRoundResult(playerChoice, computerChoice);
-    updateScore(roundResult, score);
-    announceRoundResult(roundResult, playerChoice, computerChoice, score);
-    if (round !== roundsToPlay) {
-      announceScore(round, roundsToPlay, score);
-    } else {
-      announceWinner(score)
-    }
-    
-  }
+function initializeGame() {
+  let computerChoice = getComputerChoice();
 }
 
-function updateScore(playerRoundResult, score) {
+function updateScore(roundResult, score) {
   switch (playerRoundResult) {
     case "win":
       score[0]++;
@@ -57,28 +34,12 @@ function updateScore(playerRoundResult, score) {
   }
   }
 
-function getDesiredRounds() {
-  let desiredRounds;
-  while (true) {
-    desiredRounds = parseInt(prompt("Please enter the number of Rock Paper Scissors rounds you'd like to play: "));
-    if ( (desiredRounds < 1) || isNaN(desiredRounds)) {
-      alert("Please enter a valid number of rounds.");
-      continue;
-    } else {
-      return desiredRounds;
+function setDesiredRounds() {
+  console.log("To be implemented");
     }
-}}
 
-function getPlayerChoice() {
-  let input = prompt("Please enter your selection, or type help for help: ");
-  if (input === null) {
-    return input = "rock";
-  } else {
-    return input;
-  }
-}
 
-function getComputerChoice() {
+function pickComputerMove() {
   let randomNumber = (Math.floor(Math.random() * 3));
   switch (randomNumber) {
     case 0:
@@ -88,30 +49,19 @@ function getComputerChoice() {
     case 2:
       return scissorsData;
     default:
-      alert("An unexpected issue has arisen. Check the code of the getComputerChoice function.");
-  }
-}
-
-function stringToChoice(string) {
-  switch (string.toLowerCase()) {
-    case "rock":
+      console.log("Error! Check the pickComputerMove function!");
       return rockData;
-    case "paper":
-      return paperData;
-    case "scissors":
-    case "scissor":
-      return scissorsData;
-    default:
-      return null;
   }
-
 }
 
-function getRoundResult(playerChoice, computerChoice) {
+function getMatchupResult(playerMove, computerMove) {
   return (playerChoice.get(computerChoice.get("name")))
 }
 
-function announceRoundResult(playerRoundResult, playerChoice, computerChoice, score) {
+
+//todo: Combine announceRoundResult and announceScore
+
+function announceRoundResult(roundResult, playerMove, computerMove, score) {
   alert(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
 }
 
@@ -132,13 +82,10 @@ if (score[0] > score[1]) {
   alert(`It's a draw! ${score[0]}-${score[0]}`);
 }}
 
-function printHelp() {
-  alert("This is a Rock Paper Scissors game written in JavaScript. Please enter 'Rock,' 'Paper,' or 'Scissors' to select your move.")
-}
-
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
+
 
 let startButton = document.querySelector("button");
 startButton.addEventListener("click", gameLoop)

@@ -1,0 +1,29 @@
+body {
+  display: flex;
+  flex-flow: column;
+  gap: 64px;
+  background-color: blanchedalmond;
+  text-align: center;
+  font-size: large;
+}
+
+button {
+  min-height: 128px;
+  min-width: 256px;
+  background-color: aliceblue;
+  font-size: large;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.gameplayButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
