@@ -18,11 +18,13 @@ let scissorsData = new Map([
 ]);
 
 function initializeGame() {
-  let computerChoice = getComputerChoice();
+  startButton.style.display = "none";
+  gameplayButtons.style.display = "flex";
+  let computerMove = getRandomMove();
 }
 
 function updateScore(roundResult, score) {
-  switch (playerRoundResult) {
+  switch (roundResult) {
     case "win":
       score[0]++;
       break;
@@ -39,7 +41,7 @@ function setDesiredRounds() {
     }
 
 
-function pickComputerMove() {
+function getRandomMove() {
   let randomNumber = (Math.floor(Math.random() * 3));
   switch (randomNumber) {
     case 0:
@@ -49,27 +51,22 @@ function pickComputerMove() {
     case 2:
       return scissorsData;
     default:
-      console.log("Error! Check the pickComputerMove function!");
+      console.log("Error! Check the getRandomMove function!");
       return rockData;
   }
 }
 
-function getMatchupResult(playerMove, computerMove) {
-  return (playerChoice.get(computerChoice.get("name")))
+function getMatchupResult(move, target) {
+  return (move.get(target.get("name"))) 
 }
 
 
-//todo: Combine announceRoundResult and announceScore
-
-function announceRoundResult(roundResult, playerMove, computerMove, score) {
-  alert(`You ${playerRoundResult}! ${capitalize(playerChoice.get("name"))} ${playerRoundResult + "s"} against ${capitalize(computerChoice.get("name"))}.`);
-}
-
-function announceScore(currentRound, roundsToPlay, score) {
+function announceGameState(roundResult, playerMove, computerMove, score) {
+  let infoText = `You ${roundResult}! ${capitalize(playerMove.get("name"))} ${roundResult + "s"} against ${capitalize(computerMove.get("name"))}.`
   if (currentRound < roundsToPlay) {
-    alert(`This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`);
+    infoText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`;
   } else {
-    alert(`This makes the score ${score[0]} for the player and ${score[1]} for the computer overall!`);
+    infoText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer overall!`;
   }
 }
 
@@ -86,6 +83,6 @@ function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
-
-let startButton = document.querySelector("button");
-startButton.addEventListener("click", gameLoop)
+let startButton = document.querySelector("button.start");
+let gameplayButtons = document.querySelector(".gameplay")
+startButton.addEventListener("click", initializeGame);
