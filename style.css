@@ -21,6 +21,10 @@ button {
   flex-grow: 1;
 }
 
+.numberConfirmation {
+  display: none;
+}
+
 .gameplay {
   display: none;
   justify-content: center;

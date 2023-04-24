@@ -17,10 +17,22 @@ let scissorsData = new Map([
   ["scissors", "draw"]
 ]);
 
+
 function initializeGame() {
+  if (roundsInput.value < 1) {
+    updateInfo("ERROR");
+  }
   startButton.style.display = "none";
+  roundsSelection.style.display = "none";
   gameplayButtons.style.display = "flex";
-  let computerMove = getRandomMove();
+  for (const button of gameplayButtons.children) {
+    button.addEventListener("click", playRound);
+    
+  }
+}
+
+function playRound() {
+  console.log(this);
 }
 
 function updateScore(roundResult, score) {
@@ -35,11 +47,6 @@ function updateScore(roundResult, score) {
       break;
   }
   }
-
-function setDesiredRounds() {
-  console.log("To be implemented");
-    }
-
 
 function getRandomMove() {
   let randomNumber = (Math.floor(Math.random() * 3));
@@ -62,27 +69,31 @@ function getMatchupResult(move, target) {
 
 
 function announceGameState(roundResult, playerMove, computerMove, score) {
-  let infoText = `You ${roundResult}! ${capitalize(playerMove.get("name"))} ${roundResult + "s"} against ${capitalize(computerMove.get("name"))}.`
+  let announcementText = `You ${roundResult}! ${capitalize(playerMove.get("name"))} ${roundResult + "s"} against ${capitalize(computerMove.get("name"))}.`
   if (currentRound < roundsToPlay) {
-    infoText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`;
+    announcementText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`;
   } else {
-    infoText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer overall!`;
+    if (score[0] > score[1]) {
+      announcementText += (`The player wins with a score of ${score[0]} to the computer's ${score[1]}!`);
+    } else if (score[1] > score[0]) {
+      announcementText += (`The computer wins with a score of ${score[1]} to the player's ${score[0]}!`);
+    } else {
+      announcementText += (`It's a draw! ${score[0]}-${score[1]}`);
+      }}
+  updateInfo(announcementText);
   }
-}
-
-function announceWinner(score) {
-if (score[0] > score[1]) {
-  alert(`The player wins with a score of ${score[0]} to the computer's ${score[1]}!`);
-} else if (score[1] > score[0]) {
-  alert(`The computer wins with a score of ${score[1]} to the player's ${score[0]}!`);
-} else {
-  alert(`It's a draw! ${score[0]}-${score[0]}`);
-}}
 
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
+function updateInfo(message) {
+  let informationParagraph = document.querySelector(".info p");
+  informationParagraph.innerText = message;
+}
+
 let startButton = document.querySelector("button.start");
-let gameplayButtons = document.querySelector(".gameplay")
+let roundsSelection = document.querySelector(".roundsSelection");
+let roundsInput = document.querySelector("#rounds")
+let gameplayButtons = document.querySelector(".gameplay");
 startButton.addEventListener("click", initializeGame);
