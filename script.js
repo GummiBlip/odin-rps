@@ -20,10 +20,11 @@ let nameData = new Map([
 ])
 
 function initializeGame() {
-  if (!validateRounds()) return -1;
-  setGamePage();
+  roundsToPlay = Math.floor(Math.abs(document.querySelector("#rounds").value));
+  roundsToPlay == 0 ? 1 : roundsToPlay;
 
-  let startButton = document.querySelector("button.start");
+  updateInfo(`Playing ${roundsToPlay} rounds. Select your first move!`)
+
   let roundsSelection = document.querySelector(".roundsSelection");
   let gameplayButtons = document.querySelector(".gameplay");
   startButton.style.display = "none";
@@ -39,35 +40,31 @@ function playRound() {
   console.log(getRandomMove());
 }
 
-function validateRounds() {
-  let rounds = document.querySelector("#rounds").value;
-}
-
 function updateScore(roundResult) {
   switch (roundResult) {
     case "win":
-      score[0]++;
+      score[player]++;
       break;
     case "lose":
-      score[1]++;
+      score[computer]++;
       break;
-    case "draw":
+    default:
       break;
   }
   }
 
-function getRandomMove() {
+function getRandomMoveName() {
   let randomNumber = (Math.floor(Math.random() * 3));
   switch (randomNumber) {
     case 0:
-      return rockData;
+      return "rock";
     case 1:
-      return paperData;
+      return "paper";
     case 2:
-      return scissorsData;
+      return "scissors";
     default:
       console.log("Error! Check the getRandomMove function!");
-      return rockData;
+      return "rock";
   }
 }
 
@@ -99,5 +96,11 @@ function updateInfo(message) {
   informationParagraph.innerText = message;
 }
 
-let score = [0, 0];
+let score = {
+  player: 0,
+  computer: 0
+};
+
+let roundsToPlay = 5;
+let startButton = document.querySelector("button.start");
 document.querySelector("button.start").addEventListener("click", initializeGame);
