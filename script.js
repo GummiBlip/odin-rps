@@ -20,9 +20,9 @@ let nameData = new Map([
 ])
 
 function initializeGame() {
-  roundsToPlay = Math.floor(Math.abs(document.querySelector("#rounds").value));
-  roundsToPlay == 0 ? 1 : roundsToPlay;
-
+  if (setDesiredRounds() == false) {
+    return;
+  }
   updateInfo(`Playing ${roundsToPlay} rounds. Select your first move!`)
 
   let roundsSelection = document.querySelector(".roundsSelection");
@@ -36,8 +36,20 @@ function initializeGame() {
   }
 }
 
+function setDesiredRounds() {
+  roundsToPlay = Math.floor(document.querySelector("#rounds").value);
+  if (!isNaN(roundsToPlay) && roundsToPlay >= 1 && roundsToPlay <= 99) {
+    return true;
+  } else {
+    updateInfo("Please enter a valid number of rounds.");
+    roundsToPlay = 5;
+    return false;
+  }
+}
+
 function playRound() {
   console.log(getRandomMove());
+  
 }
 
 function updateScore(roundResult) {
