@@ -14,6 +14,12 @@ button {
   font-size: large;
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .info {
   display: flex;
   justify-content: center;
@@ -27,7 +33,9 @@ button {
 
 .gameplay {
   display: none;
-  justify-content: center;
-  align-items: center;
   gap: 8px;
+}
+
+.refresh {
+  display: none;
 }

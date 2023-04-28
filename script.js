@@ -48,17 +48,24 @@ function setDesiredRounds() {
 }
 
 function playRound() {
-  console.log(getRandomMove());
-  
+  let computerMove = getRandomMoveName();
+  let playerMove = this.id;
+  let result = getMatchupResult(playerMove, computerMove);
+  updateScore(result);
+  announceGameState(result, playerMove, computerMove);
+  if (currentRound === roundsToPlay) {
+    endGame();
+  }
+  currentRound += 1;
 }
 
 function updateScore(roundResult) {
   switch (roundResult) {
     case "win":
-      score[player]++;
+      score["player"]++;
       break;
     case "lose":
-      score[computer]++;
+      score["computer"]++;
       break;
     default:
       break;
@@ -84,20 +91,27 @@ function getMatchupResult(moveName, targetName) {
   return nameData.get(moveName).get(targetName);
 }
 
-function announceGameState(roundResult, playerMove, computerMove, score) {
-  let announcementText = `You ${roundResult}! ${capitalize(playerMove.get("name"))} ${roundResult + "s"} against ${capitalize(computerMove.get("name"))}.`
-  if (currentRound < roundsToPlay) {
-    announcementText += ` This makes the score ${score[0]} for the player and ${score[1]} for the computer as of Round ${currentRound}.`;
-  } else {
-    if (score[0] > score[1]) {
-      announcementText += (` The player wins with a score of ${score[0]} to the computer's ${score[1]}!`);
-    } else if (score[1] > score[0]) {
-      announcementText += (` The computer wins with a score of ${score[1]} to the player's ${score[0]}!`);
-    } else {
-      announcementText += (` It's a draw! ${score[0]}-${score[1]}`);
-      }}
+function announceGameState(roundResult, playerMoveName, computerMoveName) {
+  let announcementText = getAnnouncementText(roundResult, playerMoveName, computerMoveName);
   updateInfo(announcementText);
   }
+
+function getAnnouncementText(roundResult, playerMoveName, computerMoveName) {
+  let playerScore = score["player"];
+  let computerScore = score["computer"];
+  let announcementText = `You ${roundResult}! ${capitalize(playerMoveName)} ${roundResult + "s"} against ${capitalize(computerMoveName)}.`
+  if (currentRound < roundsToPlay) {
+    announcementText += ` This makes the score ${playerScore} for the player and ${computerScore} for the computer as of Round ${currentRound}.`;
+  } else {
+    if (playerScore > computerScore) {
+      announcementText += (` The player wins with a score of ${playerScore} to the computer's ${computerScore}!`);
+    } else if (computerScore > playerScore) {
+      announcementText += (` The computer wins with a score of ${computerScore} to the player's ${playerScore}!`);
+    } else {
+      announcementText += (` It's a draw! ${playerScore}-${computerScore}`);
+      }}
+  return announcementText;
+}
 
 function capitalize(string) {
   return string[0].toUpperCase() + string.slice(1);
@@ -108,11 +122,23 @@ function updateInfo(message) {
   informationParagraph.innerText = message;
 }
 
+function endGame() {
+  let gameplayButtons = document.querySelector(".gameplay");
+  let refreshButton = document.querySelector(".refresh");
+
+  gameplayButtons.style.display = "none";
+  refreshButton.style.display = "block";
+
+  refreshButton.addEventListener("click", () => {
+    location.reload();
+  });
+}
+
 let score = {
   player: 0,
   computer: 0
 };
-
 let roundsToPlay = 5;
+let currentRound = 1;
 let startButton = document.querySelector("button.start");
 document.querySelector("button.start").addEventListener("click", initializeGame);
